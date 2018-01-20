@@ -668,7 +668,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return 0;
 
         case council_room:
-		   playCouncil_room(state, handPos currentPlayer);
+		   playCouncil_room(state, handPos, currentPlayer);
 
             return 0;
 
