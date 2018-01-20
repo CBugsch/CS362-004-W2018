@@ -587,7 +587,7 @@ int getCost(int cardNumber) {
 }
 
 
-void playAdventurer(struct gameState *state) {
+int playAdventurer(struct gameState *state) {
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
 
@@ -616,9 +616,11 @@ void playAdventurer(struct gameState *state) {
         state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[z - 1]; // discard all cards in play that have been drawn
         z = z - 1;
     }
+
+    return 0;
 }
 
-void playCouncil_room(struct gameState *state, int handPos, int currentPlayer) {
+int playCouncil_room(struct gameState *state, int handPos, int currentPlayer) {
 	int i;
 	
 	//+4 Cards
@@ -639,9 +641,10 @@ void playCouncil_room(struct gameState *state, int handPos, int currentPlayer) {
 	//put played card in played card pile
 	discardCard(handPos, currentPlayer, state, 0);
 
+	return 0;
 }
 
-void playFeast(struct gameState *state, int handPos, int currentPlayer, int choice1) {
+int playFeast(struct gameState *state, int handPos, int currentPlayer, int choice1) {
 	int i;
 	int x;
 	int temphand[MAX_HAND];// moved above the if statement
@@ -697,10 +700,11 @@ void playFeast(struct gameState *state, int handPos, int currentPlayer, int choi
 		temphand[i] = -1;
 	}
 
-
+	return 0;
 }
 
-void playMine(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
+int playMine(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
+	int i;
 	int j;
 	j = state->hand[currentPlayer][choice1];  //store card we will trash
 
@@ -728,9 +732,10 @@ void playMine(struct gameState *state, int currentPlayer, int handPos, int choic
 			break;
 		}
 	}
+	reuturn 0;
 }
 
-void playRemodel(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
+int playRemodel(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
 	int i;
 	int j;
 	j = state->hand[currentPlayer][choice1];  //store card we will trash
@@ -751,9 +756,10 @@ void playRemodel(struct gameState *state, int currentPlayer, int handPos, int ch
 			break;
 		}
 	}
+	return 0;
 }
 
-void playSmithy(struct gameState *state, int currentPlayer, int handPos) {
+int playSmithy(struct gameState *state, int currentPlayer, int handPos) {
 	int i;
 	//+3 Cards
 	for (i = 0; i < 3; i++) {
@@ -762,9 +768,11 @@ void playSmithy(struct gameState *state, int currentPlayer, int handPos) {
 
 	//discard card from hand
 	discardCard(handPos, currentPlayer, state, 0);
+
+	return 0;
 }
 
-void playVillage(struct gameState *state, int currentPlayer, int handPos) {
+int playVillage(struct gameState *state, int currentPlayer, int handPos) {
 	//+1 Card
 	drawCard(currentPlayer, state);
 
@@ -773,6 +781,8 @@ void playVillage(struct gameState *state, int currentPlayer, int handPos) {
 
 	//discard played card from hand
 	discardCard(handPos, currentPlayer, state, 0);
+
+	return 0;
 }
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus) {
@@ -797,35 +807,28 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     //uses switch to select card and perform actions
     switch (card) {
         case adventurer:
-            playAdventurer(state);
-            return 0;
+            return playAdventurer(state);
 
         case council_room:
-		  playCouncil_room(state, handPos, currentPlayer);
-            return 0;
+		  return playCouncil_room(state, handPos, currentPlayer);
 
         case feast:
-		  playFeast(state, handPos, currentPlayer, choice1);
-            return 0;
+		  return playFeast(state, handPos, currentPlayer, choice1);
 
         case gardens:
             return -1;
 
         case mine:
-		  playMine(state, currentPlayer, handPos, choice1, choice2);
-            return 0;
+		  return playMine(state, currentPlayer, handPos, choice1, choice2);
 
         case remodel:
-		   playRemodel(state, currentPlayer, handPos, choice1, choice2);
-            return 0;
+		   return playRemodel(state, currentPlayer, handPos, choice1, choice2);
 
         case smithy:
-		   playSmithy(state, currentPlayer, handPos);
-            return 0;
+		   return playSmithy(state, currentPlayer, handPos);
 
         case village:
-		   playVillage(state, currentPlayer, handPos);
-            return 0;
+		   return playVillage(state, currentPlayer, handPos);
 
         case baron:
             state->numBuys++;//Increase buys by 1!
