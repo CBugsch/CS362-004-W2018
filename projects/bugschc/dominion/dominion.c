@@ -700,6 +700,36 @@ void playFeast(struct gameState *state, int handPos, int currentPlayer, int choi
 
 }
 
+void playMine(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
+	int j;
+	j = state->hand[currentPlayer][choice1];  //store card we will trash
+
+	if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold) {
+		return -1;
+	}
+
+	if (choice2 > treasure_map || choice2 < curse) {
+		return -1;
+	}
+
+	if ((getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2)) {
+		return -1;
+	}
+
+	gainCard(choice2, state, 2, currentPlayer);
+
+	//discard card from hand
+	discardCard(handPos, currentPlayer, state, 0);
+
+	//discard trashed card
+	for (i = 0; i < state->handCount[currentPlayer]; i++) {
+		if (state->hand[currentPlayer][i] == j) {
+			discardCard(i, currentPlayer, state, 0);
+			break;
+		}
+	}
+}
+
 void playSmithy(struct gameState *state, int currentPlayer, int handPos) {
 	int i;
 	//+3 Cards
@@ -745,49 +775,21 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     switch (card) {
         case adventurer:
             playAdventurer(state);
-
             return 0;
 
         case council_room:
-		   playCouncil_room(state, handPos, currentPlayer);
-
+		  playCouncil_room(state, handPos, currentPlayer);
             return 0;
 
         case feast:
-		   playFeast(state, handPos, currentPlayer, choice1);
+		  playFeast(state, handPos, currentPlayer, choice1);
             return 0;
 
         case gardens:
             return -1;
 
         case mine:
-            j = state->hand[currentPlayer][choice1];  //store card we will trash
-
-            if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold) {
-                return -1;
-            }
-
-            if (choice2 > treasure_map || choice2 < curse) {
-                return -1;
-            }
-
-            if ((getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2)) {
-                return -1;
-            }
-
-            gainCard(choice2, state, 2, currentPlayer);
-
-            //discard card from hand
-            discardCard(handPos, currentPlayer, state, 0);
-
-            //discard trashed card
-            for (i = 0; i < state->handCount[currentPlayer]; i++) {
-                if (state->hand[currentPlayer][i] == j) {
-                    discardCard(i, currentPlayer, state, 0);
-                    break;
-                }
-            }
-
+		  playMine(state, currentPlayer, handPos, choice1, choice2);
             return 0;
 
         case remodel:
