@@ -732,7 +732,7 @@ int playMine(struct gameState *state, int currentPlayer, int handPos, int choice
 			break;
 		}
 	}
-	reuturn 0;
+	return 0;
 }
 
 int playRemodel(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
