@@ -589,6 +589,7 @@ int getCost(int cardNumber) {
 
 void playAdventurer(struct gameState *state) {
     int currentPlayer = whoseTurn(state);
+    int nextPlayer = currentPlayer + 1;
 
     int temphand[MAX_HAND];// moved above the if statement
     int drawntreasure = 0;
@@ -639,7 +640,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     //uses switch to select card and perform actions
     switch (card) {
         case adventurer:
-            playAdventurer(*state);
+            playAdventurer(state);
 
             return 0;
 
