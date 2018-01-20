@@ -982,6 +982,7 @@ int playTribute(struct gameState *state, int currentPlayer, int handPos) {
 }
 
 int playAmbassador(struct gameState *state, int currentPlayer, int handPos, int choice1, int choice2) {
+	int i;
 	int j;
 	j = 0;        //used to check if player has enough cards to discard
 
@@ -1065,25 +1066,99 @@ int playCutpurse(struct gameState *state, int currentPlayer, int handPos) {
 
 }
 
+int playEmbargo(struct gameState *state, int currentPlayer, int handPos, int choice1) {
+	//+2 Coins
+	state->coins = state->coins + 2;
+
+	//see if selected pile is in play
+	if (state->supplyCount[choice1] == -1) {
+		return -1;
+	}
+
+	//add embargo token to selected supply pile
+	state->embargoTokens[choice1]++;
+
+	//trash card
+	discardCard(handPos, currentPlayer, state, 1);
+	return 0;
+}
+
+int playOutpost(struct gameState *state, int currentPlayer, int handPos) {
+	//set outpost flag
+	state->outpostPlayed++;
+
+	//discard card
+	discardCard(handPos, currentPlayer, state, 0);
+	return 0;
+}
+
+int playSalvager(struct gameState *state, int currentPlayer, int handPos, int choice1) {
+	//+1 buy
+	state->numBuys++;
+
+	if (choice1) {
+		//gain coins equal to trashed card
+		state->coins = state->coins + getCost(handCard(choice1, state));
+		//trash card
+		discardCard(choice1, currentPlayer, state, 1);
+	}
+
+	//discard card
+	discardCard(handPos, currentPlayer, state, 0);
+	return 0;
+}
+
+int playSeaHag(struct gameState *state, int currentPlayer, int handPos) {
+	int i;
+	for (i = 0; i < state->numPlayers; i++) {
+		if (i != currentPlayer) {
+			state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
+			state->deckCount[i]--;
+			state->discardCount[i]++;
+			state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
+		}
+	}
+	return 0;
+}
+
+int playTreasureMap(struct gameState *state, int currentPlayer, int handPos){
+	int i;
+	int index;
+	//search hand for another treasure_map
+	index = -1;
+	for (i = 0; i < state->handCount[currentPlayer]; i++) {
+		if (state->hand[currentPlayer][i] == treasure_map && i != handPos) {
+			index = i;
+			break;
+		}
+	}
+	if (index > -1) {
+		//trash both treasure cards
+		discardCard(handPos, currentPlayer, state, 1);
+		discardCard(index, currentPlayer, state, 1);
+
+		//gain 4 Gold cards
+		for (i = 0; i < 4; i++) {
+			gainCard(gold, state, 1, currentPlayer);
+		}
+
+		//return success
+		return 1;
+	}
+
+	//no second treasure_map found in hand
+	return -1;
+}
+
 
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus) {
-    int i;
-    int j;
-    int k;
-    int x;
-    int index;
+  
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
 
-    int tributeRevealedCards[2] = {-1, -1};
-    int temphand[MAX_HAND];// moved above the if statement
-    int drawntreasure = 0;
-    int cardDrawn;
-    int z = 0;// this is the counter for the temp hand
     if (nextPlayer > (state->numPlayers - 1)) {
         nextPlayer = 0;
     }
-
 
     //uses switch to select card and perform actions
     switch (card) {
@@ -1132,81 +1207,19 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		   return playCutpurse(state, currentPlayer, handPos);
 
         case embargo:
-            //+2 Coins
-            state->coins = state->coins + 2;
-
-            //see if selected pile is in play
-            if (state->supplyCount[choice1] == -1) {
-                return -1;
-            }
-
-            //add embargo token to selected supply pile
-            state->embargoTokens[choice1]++;
-
-            //trash card
-            discardCard(handPos, currentPlayer, state, 1);
-            return 0;
+		   return playEmbargo(state, currentPlayer, handPos, choice1);
 
         case outpost:
-            //set outpost flag
-            state->outpostPlayed++;
-
-            //discard card
-            discardCard(handPos, currentPlayer, state, 0);
-            return 0;
+		   return playOutpost(state, currentPlayer, handPos);
 
         case salvager:
-            //+1 buy
-            state->numBuys++;
-
-            if (choice1) {
-                //gain coins equal to trashed card
-                state->coins = state->coins + getCost(handCard(choice1, state));
-                //trash card
-                discardCard(choice1, currentPlayer, state, 1);
-            }
-
-            //discard card
-            discardCard(handPos, currentPlayer, state, 0);
-            return 0;
+		   return playSalvager(state, currentPlayer, handPos, choice1);
 
         case sea_hag:
-            for (i = 0; i < state->numPlayers; i++) {
-                if (i != currentPlayer) {
-                    state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
-                    state->deckCount[i]--;
-                    state->discardCount[i]++;
-                    state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
-                }
-            }
-            return 0;
+		   return playSeaHag(state, currentPlayer, handPos);
 
         case treasure_map:
-            //search hand for another treasure_map
-            index = -1;
-            for (i = 0; i < state->handCount[currentPlayer]; i++) {
-                if (state->hand[currentPlayer][i] == treasure_map && i != handPos) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index > -1) {
-                //trash both treasure cards
-                discardCard(handPos, currentPlayer, state, 1);
-                discardCard(index, currentPlayer, state, 1);
-
-                //gain 4 Gold cards
-                for (i = 0; i < 4; i++) {
-                    gainCard(gold, state, 1, currentPlayer);
-                }
-
-                //return success
-                return 1;
-            }
-
-            //no second treasure_map found in hand
-            return -1;
-    }
+		   return playTreasureMap(state, currentPlayer, handPos);
 
     return -1;
 }
