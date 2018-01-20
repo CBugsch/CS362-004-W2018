@@ -619,6 +619,8 @@ void playAdventurer(struct gameState *state) {
 }
 
 void playCouncil_room(struct gameState *state, int handPos, int currentPlayer) {
+	int i;
+	
 	//+4 Cards
 	for (i = 0; i < 4; i++) {
 		drawCard(currentPlayer, state);
