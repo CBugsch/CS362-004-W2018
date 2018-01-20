@@ -1162,64 +1162,65 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     //uses switch to select card and perform actions
     switch (card) {
-        case adventurer:
-            return playAdventurer(state);
+    case adventurer:
+	    return playAdventurer(state);
 
-        case council_room:
-		  return playCouncil_room(state, handPos, currentPlayer);
+    case council_room:
+	    return playCouncil_room(state, handPos, currentPlayer);
 
-        case feast:
-		  return playFeast(state, handPos, currentPlayer, choice1);
+    case feast:
+	    return playFeast(state, handPos, currentPlayer, choice1);
 
-        case gardens:
-            return -1;
+    case gardens:
+	    return -1;
 
-        case mine:
-		  return playMine(state, currentPlayer, handPos, choice1, choice2);
+    case mine:
+	    return playMine(state, currentPlayer, handPos, choice1, choice2);
 
-        case remodel:
-		   return playRemodel(state, currentPlayer, handPos, choice1, choice2);
+    case remodel:
+	    return playRemodel(state, currentPlayer, handPos, choice1, choice2);
 
-        case smithy:
-		   return playSmithy(state, currentPlayer, handPos);
+    case smithy:
+	    return playSmithy(state, currentPlayer, handPos);
 
-        case village:
-		   return playVillage(state, currentPlayer, handPos);
+    case village:
+	    return playVillage(state, currentPlayer, handPos);
 
-        case baron:
-		   return playBaron(state, currentPlayer, handPos, choice1);
+    case baron:
+	    return playBaron(state, currentPlayer, handPos, choice1);
 
-        case great_hall:
-		   return playGreat_hall(state, currentPlayer, handPos);
+    case great_hall:
+	    return playGreat_hall(state, currentPlayer, handPos);
 
-        case minion:
-		   return playMinion(state, currentPlayer, handPos, choice1, choice2);
+    case minion:
+	    return playMinion(state, currentPlayer, handPos, choice1, choice2);
 
-        case steward:
-		   return playSteward(state, currentPlayer, handPos, choice1, choice2, choice3);
+    case steward:
+	    return playSteward(state, currentPlayer, handPos, choice1, choice2, choice3);
 
-        case tribute:
-		   return playTribute(state, currentPlayer, handPos);
+    case tribute:
+	    return playTribute(state, currentPlayer, handPos);
 
-        case ambassador:
-		   return playAmbassador(state, currentPlayer, handPos, choice1, choice2);
-        case cutpurse:
-		   return playCutpurse(state, currentPlayer, handPos);
+    case ambassador:
+	    return playAmbassador(state, currentPlayer, handPos, choice1, choice2);
+    case cutpurse:
+	    return playCutpurse(state, currentPlayer, handPos);
 
-        case embargo:
-		   return playEmbargo(state, currentPlayer, handPos, choice1);
+    case embargo:
+	    return playEmbargo(state, currentPlayer, handPos, choice1);
 
-        case outpost:
-		   return playOutpost(state, currentPlayer, handPos);
+    case outpost:
+	    return playOutpost(state, currentPlayer, handPos);
 
-        case salvager:
-		   return playSalvager(state, currentPlayer, handPos, choice1);
+    case salvager:
+	    return playSalvager(state, currentPlayer, handPos, choice1);
 
-        case sea_hag:
-		   return playSeaHag(state, currentPlayer, handPos);
+    case sea_hag:
+	    return playSeaHag(state, currentPlayer, handPos);
 
-        case treasure_map:
-		   return playTreasureMap(state, currentPlayer, handPos);
+    case treasure_map:
+	    return playTreasureMap(state, currentPlayer, handPos);
+    }
 
     return -1;
 }
