@@ -642,8 +642,9 @@ void playCouncil_room(struct gameState *state, int handPos, int currentPlayer) {
 }
 
 void playSmithy(struct gameState *state, int currentPlayer, int handPos) {
+	int i;
 	//+3 Cards
-	for (int i = 0; i < 3; i++) {
+	for (i = 0; i < 3; i++) {
 		drawCard(currentPlayer, state);
 	}
 
