@@ -804,7 +804,7 @@ int playBaron(struct gameState *state, int currentPlayer, int handPos, int choic
 				state->coins += 4;//Add 4 coins to the amount of coins
 				state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
 				state->discardCount[currentPlayer]++;
-				for (p < state->handCount[currentPlayer]; p++) {
+				for (; p < state->handCount[currentPlayer]; p++) {
 					state->hand[currentPlayer][p] = state->hand[currentPlayer][p + 1];
 				}
 				state->hand[currentPlayer][state->handCount[currentPlayer]] = -1;
