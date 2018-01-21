@@ -587,10 +587,7 @@ int getCost(int cardNumber) {
 }
 
 
-int playAdventurer(struct gameState *state) {
-    int currentPlayer = whoseTurn(state);
-  
-
+int playAdventurer(struct gameState *state, int currentPlayer) {
     int temphand[MAX_HAND];// moved above the if statement
     int drawntreasure = 0;
     int cardDrawn;
@@ -604,7 +601,9 @@ int playAdventurer(struct gameState *state) {
         drawCard(currentPlayer, state);
         cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1];//top card of hand is most recently drawn card.
 	   if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold) {
+		   /******************************************************************************************************************************************************************
 		   //BUG #1 -- endless loop because we forgot to increase the drawnTreasure count
+		   ******************************************************************************************************************************************************************/
 		   //drawntreasure++;
 	   }
         else {
@@ -661,7 +660,10 @@ int playFeast(struct gameState *state, int handPos, int currentPlayer, int choic
 	//Update Coins for Buy
 	updateCoins(currentPlayer, state, 5);
 	x = 1;//Condition to loop on
-	while (x == 1) {//Buy one card
+	/********************************************************************************************************************
+	* Bug #2 changed while x == 1 to x = 1. This will create an endless loop
+	************************************************************************************************************************/
+	while (x = 1) {//Buy one card
 		if (supplyCount(choice1, state) <= 0) {
 			if (DEBUG)
 				printf("None of that card left, sorry!\n");
@@ -763,7 +765,10 @@ int playRemodel(struct gameState *state, int currentPlayer, int handPos, int cho
 int playSmithy(struct gameState *state, int currentPlayer, int handPos) {
 	int i;
 	//+3 Cards
-	for (i = 0; i < 3; i++) {
+	/*********************************************************************************************************
+	* Bug #3: Added an = sign to the loop below. This will allow the player to draw an additional card.
+	*********************************************************************************************************/
+	for (i = 0; i <= 3; i++) {
 		drawCard(currentPlayer, state);
 	}
 
@@ -788,7 +793,10 @@ int playVillage(struct gameState *state, int currentPlayer, int handPos) {
 
 int playBaron(struct gameState *state, int currentPlayer, int handPos, int choice1) {
 	state->numBuys++;//Increase buys by 1!
-	if (choice1 > 0) {//Boolean true or going to discard an estate
+	/********************************************************************************************************
+	* Bug #4: Added an = sign to if statement below. This will mean it will always evalute to true
+	***********************************************************************************************************/
+	if (choice1 >= 0) {//Boolean true or going to discard an estate
 		int p = 0;//Iterator for hand!
 		int card_not_discarded = 1;//Flag for discard set!
 		while (card_not_discarded) {
@@ -796,7 +804,7 @@ int playBaron(struct gameState *state, int currentPlayer, int handPos, int choic
 				state->coins += 4;//Add 4 coins to the amount of coins
 				state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
 				state->discardCount[currentPlayer]++;
-				for (p; p < state->handCount[currentPlayer]; p++) {
+				for (p < state->handCount[currentPlayer]; p++) {
 					state->hand[currentPlayer][p] = state->hand[currentPlayer][p + 1];
 				}
 				state->hand[currentPlayer][state->handCount[currentPlayer]] = -1;
@@ -884,7 +892,10 @@ int playMinion(struct gameState *state, int currentPlayer, int handPos, int choi
 					}
 
 					//draw 4
-					for (j = 0; j < 4; j++) {
+					/********************************************************************************************************
+					* Bug #5: Added = sign to function below allowing other players to draw 5 cards. 
+					********************************************************************************************************/
+					for (j = 0; j <= 4; j++) {
 						drawCard(i, state);
 					}
 				}
@@ -1164,7 +1175,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     //uses switch to select card and perform actions
     switch (card) {
     case adventurer:
-	    return playAdventurer(state);
+	    return playAdventurer(state, currentPlayer);
 
     case council_room:
 	    return playCouncil_room(state, handPos, currentPlayer);
