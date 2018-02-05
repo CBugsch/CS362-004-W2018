@@ -106,6 +106,9 @@ int numHandCards(struct gameState *state);
 int handCard(int handNum, struct gameState *state);
 /* enum value of indexed card in player's hand */
 
+char* cardName(int card, struct gameState *state);
+/* returns the string name of the card */
+
 int supplyCount(int card, struct gameState *state);
 /* How many of given card are left in supply */
 

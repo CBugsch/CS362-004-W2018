@@ -289,6 +289,90 @@ int handCard(int handPos, struct gameState *state) {
     return state->hand[currentPlayer][handPos];
 }
 
+char* cardName(int card, struct gameState *state) {
+	switch (card) {
+
+	case curse:
+		return "curse";
+	case estate:
+		return "estate";
+	case duchy:
+		return "dutchy";
+	case province:
+		return "province";
+	case copper:
+		return "copper";
+	case silver:
+		return "silver";
+	case gold:
+		return "gold";
+
+	case adventurer:
+		return "adventurer";
+
+	case council_room:
+		return "council room";
+
+	case feast:
+		return "feast";
+
+	case gardens:
+		return "gardens";
+
+	case mine:
+		return "mine";
+
+	case remodel:
+		return "remodel";
+
+	case smithy:
+		return "smithy";
+
+	case village:
+		return "village";
+
+	case baron:
+		return "baron";
+
+	case great_hall:
+		return "great hall";
+
+	case minion:
+		return "minion";
+
+	case steward:
+		return "steward";
+
+	case tribute:
+		return "tribute";
+
+	case ambassador:
+		return "ambassador";
+
+	case cutpurse:
+		return "cutpurse";
+
+	case embargo:
+		return "embargo";
+
+	case outpost:
+		return "outpost";
+
+	case salvager:
+		return "salvager";
+
+	case sea_hag:
+		return "sea hag";
+
+	case treasure_map:
+		return "treasure map";
+
+	default:
+		return "error";
+	}
+
+}
+
 int supplyCount(int card, struct gameState *state) {
     return state->supplyCount[card];
 }
@@ -604,7 +688,7 @@ int playAdventurer(struct gameState *state, int currentPlayer) {
 		   /******************************************************************************************************************************************************************
 		   //BUG #1 -- endless loop because we forgot to increase the drawnTreasure count
 		   ******************************************************************************************************************************************************************/
-		   //drawntreasure++;
+		   drawntreasure++;
 	   }
         else {
             temphand[z] = cardDrawn;
