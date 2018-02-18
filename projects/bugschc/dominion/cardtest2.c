@@ -38,6 +38,7 @@ int main() {
 
 	//set a card in the players hand to be an adventurer
 	G.hand[thisPlayer][0] = adventurer;
+	G.deck[thisPlayer][G.deckCount[thisPlayer] - 1] = smithy;
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
@@ -96,7 +97,11 @@ int main() {
 	for (index = 0; index < testG.handCount[thisPlayer]; index++) {
 		printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
 	}
-	
+
+
+
+
+
 
 	//print current testing results
 	printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n\n", testPassed, testCount);

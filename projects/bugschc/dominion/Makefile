@@ -57,6 +57,29 @@ unittest3: unittest3.c dominion.o rngs.o
 unittest4: unittest4.c dominion.o rngs.o
 	gcc -o unittest4 -g unittest4.c dominion.o rngs.o $(CFLAGS)
 
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard1: randomtestcard1.c dominion.o rngs.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard2: randomtestcard2.c dominion.o rngs.o
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
+#Run all random tests
+randomtestresults.out: randomtestcard1 randomtestcard2 randomtestadventurer
+	./randomtestcard1 &> randomtestcard1.out
+	gcov dominion.c -b >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+	rm dominion.c.gcov	#Reset the gcov file
+	./randomtestcard2 &> randomtestcard2.out
+	gcov dominion.c -b >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+	rm dominion.c.gcov	#Reset the gcov file
+	./randomtestadventurer &> randomtestadventurer.out
+	gcov dominion.c -b >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+
 #Allows me to view the coverage after each test
 unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 
 	./unittest1 &> unittestresults.out
