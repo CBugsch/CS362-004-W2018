@@ -1,0 +1,312 @@
+        -:    0:Source:unittest1.c
+        -:    0:Programs:9
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:#include <stdlib.h>
+        -:    8:
+        -:    9:#define RED		"\x1b[31m"
+        -:   10:#define YELLOW		"\x1b[33m"
+        -:   11:#define BOLD_YELLOW	"\033[01;33m"
+        -:   12:#define GREEN		"\x1b[32m"
+        -:   13:#define COLOR_RESET	"\033[0m"
+        -:   14:
+        -:   15:#define FUNCTION	"discardCard()"
+        -:   16:
+        2:   17:int main() {
+        2:   18:	int testCount = 0;
+        2:   19:	int totalTests = 0;
+        2:   20:	int testPassed = 0;
+        2:   21:	int totalPassed = 0;
+        -:   22:
+        -:   23:	int index;
+        2:   24:	int handpos = 0, trashFlag = 0;
+        -:   25:
+        2:   26:	int seed = 1000;
+        2:   27:	int numPlayers = 2;
+        2:   28:	int thisPlayer = 0;
+        -:   29:	struct gameState G, testG;
+        2:   30:	int k[10] = { adventurer, embargo, village, minion, mine, cutpurse,
+        -:   31:		sea_hag, tribute, smithy, council_room };
+        -:   32:
+        -:   33:	// initialize a game state and player cards
+        2:   34:	initializeGame(numPlayers, k, seed, &G);
+        -:   35:
+        -:   36:	//set a cards in hand to be specific cards 
+        2:   37:	G.hand[thisPlayer][0] = copper;
+        2:   38:	G.hand[thisPlayer][1] = silver;	
+        2:   39:	G.hand[thisPlayer][2] = gold;	
+        2:   40:	G.hand[thisPlayer][3] = estate;
+        2:   41:	G.hand[thisPlayer][4] = duchy;	
+        -:   42:
+        -:   43:	// copy the game state to a test case
+        2:   44:	memcpy(&testG, &G, sizeof(struct gameState));
+        -:   45:
+        2:   46:	printf(BOLD_YELLOW "----------------- Testing Function: %s ----------------" COLOR_RESET "\n", FUNCTION);
+        -:   47:
+        -:   48:	// ----------- TEST 1: Card is no longer in hand --------------
+        2:   49:	printf("TEST 1: Card is no longer in hand \n");
+        -:   50:
+        -:   51:	//print the list of starting cards in hand
+        2:   52:	printf(YELLOW "Starting cards:\t");
+       12:   53:	for (index = 0; index < G.handCount[thisPlayer]; index++) {
+       10:   54:		printf("%s, ", cardName(G.hand[thisPlayer][index], &G));
+        -:   55:	}
+        -:   56:		//get the name of the card we're discarding
+        2:   57:		char* discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+        -:   58:
+        -:   59:		//get enum value of discarded card
+        2:   60:		int discardValue = handCard(handpos, &testG);
+        -:   61:
+        2:   62:		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+        -:   63:
+        -:   64:		//call discard function
+        2:   65:		discardCard(handpos, thisPlayer, &testG, trashFlag);
+        -:   66:
+        2:   67:		int foundCard = 0;
+        -:   68:
+        2:   69:		testCount++;
+        -:   70:		//check discarded card is no longer in hand
+       10:   71:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        8:   72:			if (handCard(index, &testG) == discardValue) { foundCard = 1; }
+        -:   73:		}
+        -:   74:
+        2:   75:		if (foundCard == 0) {
+        2:   76:			printf(GREEN);
+        2:   77:			testPassed++;
+        -:   78:		}
+        -:   79:		else {
+    #####:   80:			printf(RED);
+        -:   81:		}
+        2:   82:		printf("\tending cards:\t");
+       10:   83:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        -:   84:
+        8:   85:			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+        -:   86:		}
+        -:   87:
+        -:   88:		//print current testing results
+        2:   89:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:   90:		totalTests += testCount;
+        2:   91:		totalPassed += testPassed;
+        -:   92:
+        -:   93:		// ----------- TEST 2: discard count --------------
+        2:   94:		printf("\nTEST 2: Discarded card count \n");
+        -:   95:
+        -:   96:		//reset counters
+        2:   97:		testCount = 0;
+        2:   98:		testPassed = 0;
+        -:   99:
+        2:  100:		testCount++;
+        2:  101:		if (testG.discardCount[thisPlayer] == 1) {
+    #####:  102:			printf(GREEN);
+    #####:  103:			testPassed++;
+        -:  104:		}
+        -:  105:		else {
+        2:  106:			printf(RED);
+        -:  107:		}
+        2:  108:		printf("\tdiscard count = %d, expected = 1", testG.discardCount[thisPlayer]);
+        -:  109:
+        -:  110:		//print current testing results
+        2:  111:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:  112:		totalTests += testCount;
+        2:  113:		totalPassed += testPassed;
+        -:  114:
+        -:  115:		// ----------- TEST 3: trash card --------------
+        2:  116:		printf("\nTEST 3: Trash a card\n");
+        -:  117:
+        -:  118:		// copy the game state to a test case
+        2:  119:		memcpy(&testG, &G, sizeof(struct gameState));
+        -:  120:
+        -:  121:		//reset counters
+        2:  122:		testCount = 0;
+        2:  123:		testPassed = 0;
+        -:  124:
+        -:  125:		//set trash flag
+        2:  126:		trashFlag = 1;
+        -:  127:
+        -:  128:		//call discard function
+        2:  129:		discardCard(handpos, thisPlayer, &testG, trashFlag);
+        -:  130:
+        2:  131:		testCount++;
+        2:  132:		if (testG.discardCount[thisPlayer] - testG.playedCardCount == 1) {
+    #####:  133:			printf(GREEN);
+    #####:  134:			testPassed++;
+        -:  135:		}
+        -:  136:		else {
+        2:  137:			printf(RED);
+        -:  138:		}
+        2:  139:		printf("\ttrashed card count = %d, expected = 1", testG.discardCount[thisPlayer] - testG.playedCardCount);
+        -:  140:
+        -:  141:		//print current testing results
+        2:  142:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:  143:		totalTests += testCount;
+        2:  144:		totalPassed += testPassed;
+        -:  145:
+        -:  146:		// ----------- TEST 4: trash card not played--------------
+        2:  147:		printf("\nTEST 4: Trashed card was not played\n");
+        -:  148:
+        -:  149:		//reset counters
+        2:  150:		testCount = 0;
+        2:  151:		testPassed = 0;
+        -:  152:
+        2:  153:		testCount++;
+        2:  154:		if (testG.playedCardCount == 0) {
+        2:  155:			printf(GREEN);
+        2:  156:			testPassed++;
+        -:  157:		}
+        -:  158:		else {
+    #####:  159:			printf(RED);
+        -:  160:		}
+        2:  161:		printf("\tplayed card count = %d, expected = 0", testG.playedCardCount);
+        -:  162:
+        -:  163:		//print current testing results
+        2:  164:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:  165:		totalTests += testCount;
+        2:  166:		totalPassed += testPassed;
+        -:  167:
+        -:  168:		// ----------- TEST 5: discard last card in hand--------------
+        2:  169:		printf("\nTEST 5: Discard last card in hand\n");
+        -:  170:
+        -:  171:		//reset counters
+        2:  172:		testCount = 0;
+        2:  173:		testPassed = 0;
+        -:  174:
+        -:  175:		// copy the game state to a test case
+        2:  176:		memcpy(&testG, &G, sizeof(struct gameState));
+        -:  177:
+        2:  178:		handpos = 4;
+        -:  179:
+        -:  180:		//print the list of starting cards in hand
+        2:  181:		printf(YELLOW "Starting cards:\t");
+       12:  182:		for (index = 0; index < G.handCount[thisPlayer]; index++) {
+       10:  183:			printf("%s", cardName(G.hand[thisPlayer][index], &G));
+        -:  184:		}
+        -:  185:		//get the name of the card we're discarding
+        2:  186:		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+        -:  187:
+        -:  188:		//get enum value of discarded card
+        2:  189:		discardValue = handCard(handpos, &testG);
+        -:  190:
+        2:  191:		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+        -:  192:
+        -:  193:		//call discard function
+        2:  194:		discardCard(handpos, thisPlayer, &testG, trashFlag);
+        -:  195:
+        2:  196:		foundCard = 0;
+        -:  197:
+        2:  198:		testCount++;
+        -:  199:		//check discarded card is no longer in hand
+       10:  200:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        8:  201:			if (handCard(index, &testG) == discardValue) { foundCard = 1; }
+        -:  202:		}
+        -:  203:
+        2:  204:		if (foundCard == 0) {
+        2:  205:			printf(GREEN);
+        2:  206:			testPassed++;
+        -:  207:		}
+        -:  208:		else {
+    #####:  209:			printf(RED);
+        -:  210:		}
+        2:  211:		printf("\tending cards:\t");
+       10:  212:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        -:  213:
+        8:  214:			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+        -:  215:		}
+        -:  216:
+        -:  217:		//print current testing results
+        2:  218:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:  219:		totalTests += testCount;
+        2:  220:		totalPassed += testPassed;
+        -:  221:
+        -:  222:
+        -:  223:		// ----------- TEST 6: discard only card in hand--------------
+        2:  224:		printf("\nTEST 6: Discard only card in hand\n");
+        -:  225:
+        -:  226:		//reset counters
+        2:  227:		testCount = 0;
+        2:  228:		testPassed = 0;
+        -:  229:
+        -:  230:		// copy the game state to a test case
+        2:  231:		memcpy(&testG, &G, sizeof(struct gameState));
+        -:  232:
+        2:  233:		handpos = 0;
+        -:  234:		
+        -:  235:		//discard the first 4 cards
+       10:  236:		for (index = 0; index < 4; index++) {
+        8:  237:			discardCard(handpos, thisPlayer, &testG, trashFlag);
+        -:  238:		}
+        -:  239:
+        -:  240:		//print the list of starting cards in hand
+        2:  241:		printf(YELLOW "Starting cards:\t");
+        4:  242:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        2:  243:			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+        -:  244:		}
+        -:  245:		//get the name of the card we're discarding
+        2:  246:		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+        -:  247:
+        -:  248:		//get enum value of discarded card
+        2:  249:		discardValue = handCard(handpos, &testG);
+        -:  250:
+        2:  251:		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+        -:  252:
+        -:  253:		//call discard function
+        2:  254:		discardCard(handpos, thisPlayer, &testG, trashFlag);
+        -:  255:
+        2:  256:		foundCard = 0;
+        -:  257:
+        2:  258:		testCount++;
+        -:  259:		//check discarded card is no longer in hand
+        2:  260:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+    #####:  261:			if (handCard(index, &testG) == discardValue) { foundCard = 1; }
+        -:  262:		}
+        -:  263:
+        2:  264:		if (foundCard == 0) {
+        2:  265:			printf(GREEN);
+        2:  266:			testPassed++;
+        -:  267:		}
+        -:  268:		else {
+    #####:  269:			printf(RED);
+        -:  270:		}
+        2:  271:		printf("\tending cards:\t");
+        2:  272:		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+        -:  273:
+    #####:  274:			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+        -:  275:		}
+        -:  276:
+        -:  277:		//test hand count
+        2:  278:		testCount++;
+        2:  279:		if (testG.handCount[thisPlayer] == 0) {
+        2:  280:			printf(GREEN);
+        2:  281:			testPassed++;
+        -:  282:		}
+        -:  283:		else {
+    #####:  284:			printf(RED);
+        -:  285:		}
+        2:  286:		printf("\n\tcards in hand = %d, expected = 0", testG.handCount[thisPlayer]);
+        -:  287:
+        -:  288:		//print current testing results
+        2:  289:		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
+        2:  290:		totalTests += testCount;
+        2:  291:		totalPassed += testPassed;
+        -:  292:
+        -:  293:
+        -:  294:
+        -:  295:
+        -:  296:		// ----------------- TEST RESULTS -------------------------------
+        2:  297:		printf(BOLD_YELLOW "\nTotal Test Passed: %d/%d" COLOR_RESET, totalPassed, totalTests);
+        -:  298:		char* testResult;
+        2:  299:		if (totalTests == totalPassed) {
+    #####:  300:			testResult = "SUCCESS";
+    #####:  301:			printf(GREEN);
+        -:  302:		}
+        -:  303:		else {
+        2:  304:			testResult = "FAILED";
+        2:  305:			printf(RED);
+        -:  306:		}
+        -:  307:
+        2:  308:		printf("\n >> >> > %s: Testing complete %s << << < " COLOR_RESET "\n", testResult, FUNCTION);
+        2:  309:	return 0;
+        -:  310:}
