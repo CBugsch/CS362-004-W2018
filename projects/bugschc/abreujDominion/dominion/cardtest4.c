@@ -84,7 +84,7 @@ int main() {
 	//print the list of starting cards in hand
 	printf(YELLOW "Starting cards:\t");
 	for (j = 0; j < G.handCount[thisPlayer]; j++) {
-		printf("%s, ", cardName(G.hand[thisPlayer][j], &G));
+		printf("%d, ", G.hand[thisPlayer][j]);
 	}
 	printf( "\nStarting coins: %d" COLOR_RESET "\n", G.coins);
 
@@ -94,12 +94,12 @@ int main() {
 		memcpy(&testG, &G, sizeof(struct gameState));
 
 		//get the name of the card we're discarding
-		char* discardCard = cardName(testG.hand[thisPlayer][index], &testG);
+	//	char* discardCard = cardName(testG.hand[thisPlayer][index], &testG);
 		
 		//get enum value of discarded card
 		int discardValue = handCard(index, &testG);
 		
-		printf("Discarding %s (cost = %d)...\n", discardCard, getCost(discardValue));
+		printf("Discarding %d (cost = %d)...\n", testG.hand[thisPlayer][index], getCost(discardValue));
 		
 		//call salvager action function with different choices
 		cardEffect(salvager, index, choice2, choice3, &testG, handpos, &bonus);
@@ -121,7 +121,7 @@ int main() {
 		printf("\tending cards:\t");
 		for (j = 0; j < testG.handCount[thisPlayer]; j++) {
 			
-			printf("%s, ", cardName(testG.hand[thisPlayer][j], &testG));
+			printf("%d", testG.hand[thisPlayer][j]);
 		}
 		if (testG.coins == G.coins + index + cost) {
 			printf(GREEN);
@@ -156,7 +156,7 @@ int main() {
 	else {
 		printf(RED);
 	}
-	printf("\n\tcards played = %s, expected = %s" COLOR_RESET "\n", cardName(testG.playedCards[0], &testG), "salvager");
+	printf("\n\tcards played = %d, expected = %s" COLOR_RESET "\n", testG.playedCards[0], "salvager");
 
 	//testing number of played cards
 	testCount++;
@@ -268,7 +268,7 @@ int main() {
 			else {
 				printf(RED);
 			}
-			printf("\tNumber of %s cards = %d, expected = %d" COLOR_RESET "\n", cardName(index, &G), testG.supplyCount[index], G.supplyCount[index]);
+			printf("\tNumber of  cards = %d, expected = %d" COLOR_RESET "\n",  testG.supplyCount[index], G.supplyCount[index]);
 		}
 	}
 	//print current testing results

@@ -1,0 +1,161 @@
+# Christopher Bugsch
+# CS 362
+# Assginment-5
+# Bugs found in James Abreu (abreuj) Dominion Code
+
+#################################################################################################
+
+Name: 
+discardCard() Function Bug #1
+
+Description:
+Function does not increase the discard count when a player discards a card
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Call discardCard(0, 0, gameState, 0)
+
+Version: 
+abreuj-assignment-2
+
+Severity: Major
+Not a complicated fix, but function is used in multiple places and will cause additional bugs
+
+Priority: Urgent
+Must be fixed in next build to avoid additional bugs  
+
+###################################################################################################
+
+Name: 
+discardCard() Function Bug #2
+
+Description:
+Function adds non-trashed card to played pile, but does not add trashed card to trashed pile
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Call discardCard(0, 0, gameState, 1)
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix. Does not effect major functionality 
+
+Priority: Medium
+Needs to be fixed, but not important to fix right away  
+
+####################################################################################################
+
+Name: 
+scoreFor() Function Bug #1
+
+Description:
+Function does not properly count score for cards in a players deck
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, card)
+Set state->deck[0][0] = estate
+Set state->deckCount[0] = 1
+Set state->handCount[0] = 0
+Set state->discardCount = 0
+Call scoreFor(state, 0)
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix, does not effect game play
+
+Priority: High
+Needs to be fixed before game release
+
+###################################################################################################
+
+Name: 
+smithyEffect() Function Bug #1
+
+Description:
+Function only adds 1 card to the player’s hand instead of expected 3
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Set state->hand[0][0] = smithy
+Call smithyEffect(0, state, 0)
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix. Does not effect major functionality 
+
+Priority: Medium
+Needs to be fixed, but not important to fix right away  
+
+##################################################################################################
+
+Name: 
+adventurerEffect() Function Bug #1
+
+Description:
+Function adds 3 cards to player’s hand instead of expected 2
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Set state->hand[0][0] = adventurer
+Call cardEffect(adventurer, 0, 0, 0, state, 0, 0, )
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix. Does not effect major functionality 
+
+Priority: Medium
+Needs to be fixed, but not important to fix right away  
+
+#############################################################################################
+
+Name: 
+adventurerEffect() Function Bug #2
+
+Description:
+Function does not remove the played adventurer card from hand
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Set state->hand[0][0] = adventurer
+Call cardEffect(adventurer, 0, 0, 0, state, 0, 0, )
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix. Does not effect major functionality 
+
+Priority: Medium
+Needs to be fixed, but not important to fix right away  
+
+##########################################################################################
+
+Name: 
+villageEffect() Function Bug #1
+
+Description:
+Function does not add to additional actions to player
+
+Steps To Reproduce:
+Initiate a valid game state (valid number of players, cards)
+Set state->hand[0][0] = village
+Call villageEffect( 0, state, 0 )
+
+Version: 
+abreuj-assignment-2
+
+Severity: Minor
+Not a complicated fix. Does not effect major functionality 
+
+Priority: Medium
+Needs to be fixed, but not important to fix right away  
+
+

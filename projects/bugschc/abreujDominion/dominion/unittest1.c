@@ -49,17 +49,17 @@ int main() {
 	printf("TEST 1: Card is no longer in hand \n");
 
 	//print the list of starting cards in hand
-	printf(YELLOW "Starting cards:\t");
-	for (index = 0; index < G.handCount[thisPlayer]; index++) {
-		printf("%s, ", cardName(G.hand[thisPlayer][index], &G));
-	}
+//	printf(YELLOW "Starting cards:\t");
+//	for (index = 0; index < G.handCount[thisPlayer]; index++) {
+	//	printf("%s, ", cardName(G.hand[thisPlayer][index], &G));
+//	}
 		//get the name of the card we're discarding
-		char* discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+	//	char* discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
 
 		//get enum value of discarded card
 		int discardValue = handCard(handpos, &testG);
 
-		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+	//	printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
 
 		//call discard function
 		discardCard(handpos, thisPlayer, &testG, trashFlag);
@@ -79,11 +79,11 @@ int main() {
 		else {
 			printf(RED);
 		}
-		printf("\tending cards:\t");
-		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
-
-			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
-		}
+//		printf("\tending cards:\t");
+//		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+//
+//			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+//		}
 
 		//print current testing results
 		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
@@ -178,17 +178,17 @@ int main() {
 		handpos = 4;
 
 		//print the list of starting cards in hand
-		printf(YELLOW "Starting cards:\t");
-		for (index = 0; index < G.handCount[thisPlayer]; index++) {
-			printf("%s", cardName(G.hand[thisPlayer][index], &G));
-		}
+//		printf(YELLOW "Starting cards:\t");
+//		for (index = 0; index < G.handCount[thisPlayer]; index++) {
+//			printf("%s", cardName(G.hand[thisPlayer][index], &G));
+//		}
 		//get the name of the card we're discarding
-		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+//		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
 
 		//get enum value of discarded card
 		discardValue = handCard(handpos, &testG);
 
-		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+//		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
 
 		//call discard function
 		discardCard(handpos, thisPlayer, &testG, trashFlag);
@@ -208,11 +208,11 @@ int main() {
 		else {
 			printf(RED);
 		}
-		printf("\tending cards:\t");
-		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
-
-			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
-		}
+//		printf("\tending cards:\t");
+//		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+//
+//			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+//		}
 
 		//print current testing results
 		printf(BOLD_YELLOW "\nTest Passed: %d/%d" COLOR_RESET "\n", testPassed, testCount);
@@ -238,17 +238,17 @@ int main() {
 		}
 
 		//print the list of starting cards in hand
-		printf(YELLOW "Starting cards:\t");
-		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
-			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
-		}
+//		printf(YELLOW "Starting cards:\t");
+//		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+//			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+//		}
 		//get the name of the card we're discarding
-		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
+//		discardedCard = cardName(testG.hand[thisPlayer][handpos], &testG);
 
 		//get enum value of discarded card
 		discardValue = handCard(handpos, &testG);
 
-		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
+//		printf(COLOR_RESET "\nDiscarding %s...\n", discardedCard);
 
 		//call discard function
 		discardCard(handpos, thisPlayer, &testG, trashFlag);
@@ -268,11 +268,11 @@ int main() {
 		else {
 			printf(RED);
 		}
-		printf("\tending cards:\t");
-		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
-
-			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
-		}
+//		printf("\tending cards:\t");
+//		for (index = 0; index < testG.handCount[thisPlayer]; index++) {
+//
+//			printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+//		}
 
 		//test hand count
 		testCount++;

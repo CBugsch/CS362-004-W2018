@@ -1,3 +1,355 @@
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Function: discardCard() ----------------[0m
+TEST 1: Card is no longer in hand 
+[32m[01;33m
+Test Passed: 1/1[0m
+
+TEST 2: Discarded card count 
+[31m	discard count = 0, expected = 1[01;33m
+Test Passed: 0/1[0m
+
+TEST 3: Trash a card
+[31m	trashed card count = 0, expected = 1[01;33m
+Test Passed: 0/1[0m
+
+TEST 4: Trashed card was not played
+[32m	played card count = 0, expected = 0[01;33m
+Test Passed: 1/1[0m
+
+TEST 5: Discard last card in hand
+[32m[01;33m
+Test Passed: 1/1[0m
+
+TEST 6: Discard only card in hand
+[32m[32m
+	cards in hand = 0, expected = 0[01;33m
+Test Passed: 2/2[0m
+[01;33m
+Total Test Passed: 5/7[0m[31m
+ >> >> > FAILED: Testing complete discardCard() << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Function: updateCoins() ----------------[0m
+TEST 1: Coin count goes down 
+Changing silver to copper...
+[32m	coins = 9, expected = 9[01;33m
+Test Passed: 1/1[0m
+
+TEST 2: Coin count goes up 
+Changing copper back to silver...
+[32m	coins = 10, expected = 10[01;33m
+Test Passed: 1/1[0m
+
+TEST 3: Bonus get applied 
+Applying a +2 bonus...
+[32m	coins = 12, expected = 12[01;33m
+Test Passed: 1/1[0m
+
+TEST 4: Correct value of copper 
+[32m	coins = 1, expected = 1[01;33m
+Test Passed: 1/1[0m
+
+TEST 5: Correct value of silver 
+[32m	coins = 2, expected = 2[01;33m
+Test Passed: 1/1[0m
+
+TEST 6: Correct value of gold 
+[32m	coins = 3, expected = 3[01;33m
+Test Passed: 1/1[0m
+[01;33m
+Total Test Passed: 6/6[0m[32m
+ >> >> > SUCCESS: Testing complete updateCoins() << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Function: isGameOver() ----------------[0m
+TEST 1: No province cards left 
+[32m	result = Game over, expected = Game over[01;33m
+Test Passed: 1/1[0m
+
+TEST 2: More then 3 kingdom decks empty 
+[32m	result = Game over, expected = Game over[01;33m
+Test Passed: 1/1[0m
+
+TEST 3: All coin decks empty 
+[32m	result = Game over, expected = Game over[01;33m
+Test Passed: 1/1[0m
+
+TEST 4: Random decks empty 
+[32m	result = Game over, expected = Game over[01;33m
+Test Passed: 1/1[0m
+
+TEST 5: No cards drawn 
+[32m	result = Game not over, expected = Game not over[01;33m
+Test Passed: 1/1[0m
+[01;33m
+Total Test Passed: 5/5[0m[32m
+ >> >> > SUCCESS: Testing complete isGameOver() << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Function: scoreFor() ----------------[0m
+TEST 1: Score of curse 
+[32m	score = -1, expected = -1[01;33m
+Test Passed: 1/1[0m
+
+TEST 2: Score of estate 
+[32m	score = 1, expected = 1[01;33m
+Test Passed: 1/1[0m
+
+TEST 3: Score of duchy 
+[32m	score = 3, expected = 3[01;33m
+Test Passed: 1/1[0m
+
+TEST 4: Score of province 
+[32m	score = 6, expected = 6[01;33m
+Test Passed: 1/1[0m
+
+TEST 5: Score of great hall 
+[32m	score = 1, expected = 1[01;33m
+Test Passed: 1/1[0m
+
+TEST 6: Score of gardens with 9 cards 
+[32m	score = 8, expected = 8[01;33m
+Test Passed: 1/1[0m
+
+TEST 7: Score of gardens with 10 cards 
+[31m	score = 9, expected = 10[01;33m
+Test Passed: 0/1[0m
+
+TEST 8: Score from cards in hand 
+[32m	score = 5, expected = 5[01;33m
+Test Passed: 1/1[0m
+
+TEST 9: Score from cards in deck 
+[31m	score = 0, expected = 5[01;33m
+Test Passed: 0/1[0m
+
+TEST 10: Score from cards discarded 
+[31m	score = 7, expected = 5[01;33m
+Test Passed: 0/1[0m
+
+TEST 11: Score from cards trashed 
+[31m	score = 1, expected = 0[01;33m
+Test Passed: 0/1[0m
+[01;33m
+Total Test Passed: 7/11[0m[31m
+ >> >> > FAILED: Testing complete scoreFor() << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Card: Smithy ----------------[0m
+TEST 1: Current player receives exactly 3 cards
+[31m	hand count = 5, expected = 7[0m
+[31m	deck count = 4, expected = 2[0m
+[31m	discard deck count = 0, expected = 1[0m
+[01;33mTest Passed: 0/3[0m
+
+TEST 2: No state change to other players
+Player 1:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+Player 2:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+[01;33mTest Passed: 8/8[0m
+
+TEST 3: No state change to supply decks
+[32m	Number of  cards = 20, expected = 20[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 39, expected = 39[0m
+[32m	Number of  cards = 40, expected = 40[0m
+[32m	Number of  cards = 30, expected = 30[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[01;33mTest Passed: 17/17[0m
+[01;33m
+Total Test Passed: 25/28[0m[31m
+ >> >> > FAILED: Testing complete Smithy << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Card: Adventurer ----------------[0m
+TEST 1: Current player has two additional treasure cards in hand
+[31m	hand count = 8, expected = 6[0m
+[32m	coin count = 6, expected  at least = 5[0m
+[32m	starting cards:	7, 4, 1, 4, 4, 
+	ending cards:	7, 4, 1, 4, 4, 4, 4, 4, [01;33m
+Test Passed: 2/3[0m
+
+TEST 2: No state change to other players
+Player 1:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+Player 2:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+[01;33mTest Passed: 8/8[0m
+
+TEST 3: No state change to supply decks
+[32m	Number of  cards = 20, expected = 20[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 39, expected = 39[0m
+[32m	Number of  cards = 40, expected = 40[0m
+[32m	Number of  cards = 30, expected = 30[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[01;33mTest Passed: 17/17[0m
+[01;33m
+Total Test Passed: 27/28[0m[31m
+ >> >> > FAILED: Testing complete Adventurer << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Card: Village ----------------[0m
+TEST 1: Current player receives exactly 1 cards and discards village card
+[32m	hand count = 5, expected = 5[0m
+[32m	deck count = 4, expected = 4[0m
+[31m	discard deck count = 0, expected = 1[0m
+[32m	starting cards:	14, 4, 1, 4, 4, 
+	ending cards:	4, 4, 1, 4, 4, [01;33m
+Test Passed: 3/4[0m
+
+TEST 2: Player has exactly 2 additional actions
+[31m	Number of actions left = 1, expected = 2[0m
+[01;33mTest Passed: 0/1[0m
+
+TEST 3: No state change to other players
+Player 1:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+Player 2:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+[01;33mTest Passed: 8/8[0m
+
+TEST 4: No state change to supply decks
+[32m	Number of cards = 20, expected = 20[0m
+[32m	Number of cards = 12, expected = 12[0m
+[32m	Number of cards = 12, expected = 12[0m
+[32m	Number of cards = 12, expected = 12[0m
+[32m	Number of cards = 39, expected = 39[0m
+[32m	Number of cards = 40, expected = 40[0m
+[32m	Number of cards = 30, expected = 30[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[32m	Number of cards = 10, expected = 10[0m
+[01;33mTest Passed: 17/17[0m
+[01;33m
+Total Test Passed: 28/30[0m[31m
+ >> >> > FAILED: Testing complete Village << << < [0m
+
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362:Cannot create directory
+profiling:/nfs/stak/users/abreuj/18Winter/softEngr2-cs362/CS362-004-W2018/projects/abreuj/dominion/rngs.gcda:Skip
+[01;33m----------------- Testing Card: Salvager ----------------[0m
+TEST 1: Current player has correct number of cards in hand
+[32m	hand count = 3, expected = 3[0m
+[01;33mTest Passed: 1/1[0m
+
+TEST 2: Player discarded correct cards and gained correct number of coins
+[33mStarting cards:	24, 1, 14, 13, 17, 
+Starting coins: 4[0m
+Discarding 1 (cost = 2)...
+[32m	ending cards:	131714[32m
+	Coins = 6, expected = 6[0m
+Discarding 14 (cost = 3)...
+[32m	ending cards:	13117[32m
+	Coins = 7, expected = 7[0m
+Discarding 13 (cost = 4)...
+[32m	ending cards:	17114[32m
+	Coins = 8, expected = 8[0m
+Discarding 17 (cost = 5)...
+[32m	ending cards:	13114[32m
+	Coins = 9, expected = 9[0m
+[01;33mTest Passed: 8/8[0m
+
+TEST 3: Trashed card was properly trashed[32m
+	cards played = 24, expected = salvager[0m
+[32m	played cards = 1, expected = 1[0m
+[31m	discard deck count = 0, expected = 2[0m
+[01;33mTest Passed: 2/3[0m
+
+TEST 4: No state change to other players
+Player 1:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+Player 2:
+[32m	hand count = 0, expected = 0[0m
+[32m	deck count = 10, expected = 10[0m
+[32m	discard deck count = 0, expected = 0[0m
+[32m	current score = 0, expected = 0[0m
+[01;33mTest Passed: 8/8[0m
+
+TEST 5: No state change to supply decks
+[32m	Number of  cards = 20, expected = 20[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 12, expected = 12[0m
+[32m	Number of  cards = 39, expected = 39[0m
+[32m	Number of  cards = 40, expected = 40[0m
+[32m	Number of  cards = 30, expected = 30[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[32m	Number of  cards = 10, expected = 10[0m
+[01;33mTest Passed: 17/17[0m
+[01;33m
+Total Test Passed: 36/37[0m[31m
+ >> >> > FAILED: Testing complete Salvager << << < [0m
+
+File 'dominion.c'
+Lines executed:40.32% of 563
+Creating 'dominion.c.gcov'
+
         -:    0:Source:dominion.c
         -:    0:Graph:dominion.gcno
         -:    0:Data:dominion.gcda

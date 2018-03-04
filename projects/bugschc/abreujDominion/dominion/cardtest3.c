@@ -92,12 +92,12 @@ int main() {
 	else { printf(RED); }
 	printf("\tstarting cards:\t");
 	for (index = 0; index < G.handCount[thisPlayer]; index++) {
-		printf("%s, ", cardName(G.hand[thisPlayer][index], &G));
+		printf("%d, ", G.hand[thisPlayer][index]);
 	}
 
 	printf("\n\tending cards:\t");
 	for (index = 0; index < testG.handCount[thisPlayer]; index++) {
-		printf("%s, ", cardName(testG.hand[thisPlayer][index], &testG));
+		printf("%d, ", testG.hand[thisPlayer][index]);
 	}
 
 	//print current testing results
@@ -210,7 +210,7 @@ int main() {
 			else {
 				printf(RED);
 			}
-			printf("\tNumber of %s cards = %d, expected = %d" COLOR_RESET "\n", cardName(index, &G), testG.supplyCount[index], G.supplyCount[index]);
+			printf("\tNumber of cards = %d, expected = %d" COLOR_RESET "\n", testG.supplyCount[index], G.supplyCount[index]);
 		}
 	}
 	//print current testing results

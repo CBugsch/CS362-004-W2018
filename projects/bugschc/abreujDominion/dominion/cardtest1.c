@@ -156,7 +156,7 @@ int main() {
 	testPassed = 0;
 	
 	//loop through all cards
-	for (index = curse; index <= treasure_room; index++) {
+	for (index = curse; index <= treasure_map; index++) {
 		if (G.supplyCount[index] != -1) { //check only cards being played
 			testCount++;
 			if (testG.supplyCount[index] == G.supplyCount[index]) {
@@ -166,7 +166,7 @@ int main() {
 			else {
 				printf(RED);
 			}
-			printf("\tNumber of %s cards = %d, expected = %d" COLOR_RESET "\n", cardName(index, &G), testG.supplyCount[index], G.supplyCount[index]);
+			printf("\tNumber of  cards = %d, expected = %d" COLOR_RESET "\n",  testG.supplyCount[index], G.supplyCount[index]);
 		}
 	}
 	//print current testing results
